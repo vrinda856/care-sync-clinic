@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AuraHealth Clinic - 360° Comprehensive Healthcare Network</title>
+  <title>AuraHealth Clinic - 360° Comprehensive Healthcare & Diagnostics</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
@@ -26,13 +26,11 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', -apple-system, sans-serif; background-color: var(--bg-slate); color: var(--text-main); line-height: 1.5; }
 
-    /* Top Strip */
     .top-strip { background: var(--aura-navy); color: #cbd5e1; font-size: 12px; padding: 6px 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
     .top-strip span { display: inline-flex; align-items: center; gap: 6px; }
 
     .lang-select { background: #1e293b; color: #fff; border: 1px solid #475569; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin: 0; width: auto; }
 
-    /* Header & Navigation */
     header { background: #fff; border-bottom: 1px solid var(--border-color); padding: 0.85rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.04); flex-wrap: wrap; gap: 10px; }
     .brand-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; color: var(--aura-navy); text-decoration: none; }
     .brand-cross { background: var(--aura-orange); color: white; border-radius: 6px; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; }
@@ -42,7 +40,6 @@
     .nav-btn:hover { background: #f1f5f9; color: var(--text-main); }
     .nav-btn.active { background: #e0f2fe; color: var(--aura-blue); border-color: #bae6fd; }
 
-    /* Hero Section */
     .hero { background: linear-gradient(135deg, #0b2239 0%, #1e3a8a 60%, #0369a1 100%); color: #fff; padding: 3rem 2rem 3.5rem; text-align: center; }
     .hero h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.5px; }
     .hero p { font-size: 1rem; color: #e2e8f0; max-width: 680px; margin: 0 auto 1.5rem; }
@@ -54,25 +51,20 @@
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
 
-    /* Service Hub Grid */
     .service-box { border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; background: #fff; text-align: left; transition: all 0.2s; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; }
     .service-box:hover { border-color: var(--aura-blue); box-shadow: 0 4px 12px rgba(2,132,199,0.1); transform: translateY(-2px); }
     .service-icon { font-size: 32px; margin-bottom: 8px; }
 
-    /* Interactive Chips */
     .chip-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
     .chip { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 6px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
     .chip:hover, .chip.selected { background: #0284c7; color: white; border-color: #0284c7; }
 
-    /* Package Cards */
     .pkg-card { border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; background: #fff; display: flex; flex-direction: column; justify-content: space-between; }
     .pkg-price { font-size: 22px; font-weight: 700; color: var(--aura-navy); margin: 8px 0; }
 
-    /* Pharmacy Cards */
     .pharmacy-card { border: 1px solid var(--border-color); border-radius: 8px; padding: 14px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
     .pharmacy-tag { background: #dcfce7; color: #166534; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: bold; }
 
-    /* Stat Cards */
     .stat-card { background: #fff; border: 1px solid var(--border-color); border-radius: 10px; padding: 1.2rem; display: flex; align-items: center; justify-content: space-between; }
     .stat-val { font-size: 26px; font-weight: 700; color: var(--aura-navy); margin-top: 4px; }
     .stat-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
@@ -146,13 +138,12 @@
     </div>
   </header>
 
-  <!-- 1. LANDING OVERVIEW PAGE (Everything in One Place) -->
+  <!-- 1. LANDING OVERVIEW PAGE -->
   <div id="landingSection">
     <div class="hero">
       <h1 data-i18n="heroTitle">Complete Healthcare, Zero Waiting Conflicts</h1>
-      <p data-i18n="heroSubtitle">Online video consultations, free community health checkups, smart slot booking, certified lab tests, and 24/7 doorstep medicine delivery.</p>
+      <p data-i18n="heroSubtitle">Online video consultations, free community checkups, smart slot reservation, certified lab tests, and 24/7 doorstep medicine delivery.</p>
       
-      <!-- Quick Location Tags -->
       <div style="margin-top: 1rem; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
         <span style="font-size:12px;background:rgba(255,255,255,0.15);padding:4px 12px;border-radius:16px;">📍 South City Branch</span>
         <span style="font-size:12px;background:rgba(255,255,255,0.15);padding:4px 12px;border-radius:16px;">📍 Metro West Pavilion</span>
@@ -161,13 +152,11 @@
     </div>
 
     <div class="container">
-      <!-- 360 All-Services In One Place -->
       <div class="card">
         <h2 style="color:var(--aura-navy);margin-bottom:6px;" data-i18n="allServicesHeading">🌟 Everything You Need In One Place</h2>
         <p style="color:var(--text-muted);font-size:13px;margin-bottom:1.5rem;" data-i18n="allServicesSub">Choose any service below for fast, conflict-free care.</p>
 
         <div class="grid-4">
-          <!-- Service 1: In-Clinic Consultation -->
           <div class="service-box" onclick="switchTab('portal')">
             <div>
               <div class="service-icon">🏥</div>
@@ -177,7 +166,6 @@
             <button class="btn-primary" style="margin-top:10px;padding:6px;font-size:12px;" data-i18n="btnBookNow">Book Appointment</button>
           </div>
 
-          <!-- Service 2: Online Video Consultation -->
           <div class="service-box" onclick="startTelehealth()">
             <div>
               <div class="service-icon">💻</div>
@@ -187,7 +175,6 @@
             <button class="btn-primary" style="margin-top:10px;padding:6px;font-size:12px;background:#0d9488;" data-i18n="btnStartOnline">Start Video Consult</button>
           </div>
 
-          <!-- Service 3: Free OPD Consultation -->
           <div class="service-box" onclick="bookFreeConsultation()">
             <div>
               <div class="service-icon">🎁</div>
@@ -197,7 +184,6 @@
             <button class="btn-success" style="margin-top:10px;padding:6px;font-size:12px;" data-i18n="btnClaimFree">Claim Free Slot</button>
           </div>
 
-          <!-- Service 4: 24/7 Pharmacy & Stores -->
           <div class="service-box" onclick="switchTab('pharmacy')">
             <div>
               <div class="service-icon">💊</div>
@@ -209,25 +195,24 @@
         </div>
       </div>
 
-      <!-- Problem Statement Highlights -->
       <div class="grid-3">
         <div class="card">
           <h3 style="color:var(--aura-navy);margin-bottom:8px;" data-i18n="cardAudienceTitle">🎯 Target Audience</h3>
-          <p style="color:var(--text-muted);font-size:14px;" data-i18n="cardAudienceDesc">High-throughput clinics, multi-doctor hospitals, and surgical reception desks needing automated conflict mitigation.</p>
+          <p style="color:var(--text-muted);font-size:14px;" data-i18n="cardAudienceDesc">High-throughput clinics, multi-doctor hospitals, and surgical reception desks.</p>
         </div>
         <div class="card">
           <h3 style="color:var(--aura-navy);margin-bottom:8px;" data-i18n="cardBottlenecksTitle">💡 How It Solves Bottlenecks</h3>
-          <p style="color:var(--text-muted);font-size:14px;" data-i18n="cardBottlenecksDesc">Atomic slot checks. Proactive morning reminder outbox dispatch and auto 30-min no-show sweeps.</p>
+          <p style="color:var(--text-muted);font-size:14px;" data-i18n="cardBottlenecksDesc">Atomic slot checks, morning outbox reminders, and automated 30-min no-show sweeps.</p>
         </div>
         <div class="card">
           <h3 style="color:var(--aura-navy);margin-bottom:8px;" data-i18n="cardEnterpriseTitle">⚡ Enterprise Rules</h3>
-          <p style="color:var(--text-muted);font-size:14px;" data-i18n="cardEnterpriseDesc">ACID SQLite transactions, 24-hour late cancellation fee rules, and lifecycle rescheduling integrity.</p>
+          <p style="color:var(--text-muted);font-size:14px;" data-i18n="cardEnterpriseDesc">ACID SQLite transactions, 24-hour late cancel fees, and conflict-free rescheduling.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 2. PATIENT BOOKING TAB WITH ILLNESS FINDER -->
+  <!-- 2. PATIENT BOOKING WITH "WHAT IS WRONG?" FINDER -->
   <div id="portalSection" class="container" style="margin-top: 1.5rem; display:none;">
     <div id="portalAlertSuccess" class="alert alert-success"></div>
     <div id="portalAlertDanger" class="alert alert-error"></div>
@@ -236,13 +221,15 @@
       <div class="card">
         <h3 style="color:var(--aura-navy);margin-bottom:8px;" data-i18n="bookConsultTitle">🩺 Book Your Consultation</h3>
         
-        <!-- Illness / Symptom Finder -->
-        <label data-i18n="labelIllness">Find Specialist by Illness / Symptom:</label>
+        <!-- Persona: "What is wrong with you?" Guided Finder -->
+        <label data-i18n="labelIllness">What is wrong? Select your symptom / condition:</label>
         <div class="chip-group">
           <span class="chip" onclick="filterByIllness('Cardiology')">❤️ Chest Pain / Palpitation</span>
           <span class="chip" onclick="filterByIllness('Pediatrics')">👶 Child Fever / Growth</span>
-          <span class="chip" onclick="filterByIllness('Orthopedics')">🦴 Joint Pain / Fractures</span>
-          <span class="chip" onclick="filterByIllness('General')">🩺 Cold, Cough & Fatigue</span>
+          <span class="chip" onclick="filterByIllness('Orthopedics')">🦴 Bone, Joint & Back Pain</span>
+          <span class="chip" onclick="filterByIllness('General')">🩺 Cough, Cold & Fatigue</span>
+          <span class="chip" onclick="filterByIllness('Cardiology')">🩸 High Blood Pressure</span>
+          <span class="chip" onclick="filterByIllness('Pediatrics')">💉 Infant Vaccination</span>
         </div>
 
         <label data-i18n="labelConsultMode">Consultation Mode</label>
@@ -295,18 +282,19 @@
     </div>
   </div>
 
-  <!-- 3. HEALTH PACKAGES & LAB TESTS -->
+  <!-- 3. EXTENDED HEALTH PACKAGES & COMPLETE LAB TESTS -->
   <div id="packagesSection" class="container" style="margin-top: 1.5rem; display:none;">
     <div class="card">
       <h2 style="color:var(--aura-navy);margin-bottom:4px;" data-i18n="pkgHeading">🧪 Diagnostic Lab Tests & Health Packages</h2>
       <p style="color:var(--text-muted);font-size:14px;margin-bottom:1.5rem;" data-i18n="pkgSub">Automated labs with digital delivery within 24 hours.</p>
 
+      <!-- Packages Grid -->
       <div class="grid-3">
         <div class="pkg-card">
           <div>
             <span class="badge" style="background:#e0f2fe;color:#0369a1;">POPULAR</span>
             <h3 style="margin-top:8px;">Full Body Health Checkup</h3>
-            <p style="color:var(--text-muted);font-size:13px;margin:6px 0;">68 Vital Tests: Liver, Kidney, Lipid, Thyroid, Glucose, and Vitamin D/B12.</p>
+            <p style="color:var(--text-muted);font-size:13px;margin:6px 0;">68 Vital Tests: Liver (LFT), Kidney (KFT), Lipid Profile, Thyroid, Fasting Blood Sugar, Vitamin D & B12.</p>
             <div class="pkg-price">$79.00</div>
           </div>
           <button class="btn-primary" onclick="quickBookPackage('Full Body Health Checkup', 79)">Book Package</button>
@@ -316,7 +304,7 @@
           <div>
             <span class="badge" style="background:#fef3c7;color:#b45309;">CARDIAC CARE</span>
             <h3 style="margin-top:8px;">Comprehensive Heart Profile</h3>
-            <p style="color:var(--text-muted);font-size:13px;margin:6px 0;">Lipid Profile, ECG, Homocysteine, hs-CRP & consultation.</p>
+            <p style="color:var(--text-muted);font-size:13px;margin:6px 0;">Lipid Profile, 12-Lead ECG, Homocysteine, hs-CRP & consultation with Cardiologist.</p>
             <div class="pkg-price">$99.00</div>
           </div>
           <button class="btn-primary" onclick="quickBookPackage('Comprehensive Heart Profile', 99)">Book Package</button>
@@ -326,10 +314,40 @@
           <div>
             <span class="badge" style="background:#dcfce7;color:#15803d;">LAB ESSENTIALS</span>
             <h3 style="margin-top:8px;">Complete Blood Count (CBC) & Sugar</h3>
-            <p style="color:var(--text-muted);font-size:13px;margin:6px 0;">Anemia screening, infection markers, platelet count, and HbA1c.</p>
+            <p style="color:var(--text-muted);font-size:13px;margin:6px 0;">Anemia screening, platelet counts, infection markers (WBC/RBC) & HbA1c 3-month average glucose.</p>
             <div class="pkg-price">$29.00</div>
           </div>
           <button class="btn-primary" onclick="quickBookPackage('Complete Blood Count (CBC)', 29)">Book Lab Test</button>
+        </div>
+
+        <div class="pkg-card">
+          <div>
+            <span class="badge" style="background:#ede9fe;color:#7c3aed;">DIABETIC CARE</span>
+            <h3 style="margin-top:8px;">Diabetic Complete Profile</h3>
+            <p style="color:var(--text-muted);font-size:13px;margin:6px 0;">Fasting Glucose, Post-Prandial Blood Sugar, HbA1c, Urine Microalbumin & Kidney screening.</p>
+            <div class="pkg-price">$39.00</div>
+          </div>
+          <button class="btn-primary" onclick="quickBookPackage('Diabetic Complete Profile', 39)">Book Lab Test</button>
+        </div>
+
+        <div class="pkg-card">
+          <div>
+            <span class="badge" style="background:#fee2e2;color:#b91c1c;">THYROID CARE</span>
+            <h3 style="margin-top:8px;">Total Thyroid Profile (T3, T4, TSH)</h3>
+            <p style="color:var(--text-muted);font-size:13px;margin:6px 0;">High-precision hormone analysis for hyperthyroidism, hypothyroidism & metabolic health.</p>
+            <div class="pkg-price">$25.00</div>
+          </div>
+          <button class="btn-primary" onclick="quickBookPackage('Total Thyroid Profile', 25)">Book Lab Test</button>
+        </div>
+
+        <div class="pkg-card">
+          <div>
+            <span class="badge" style="background:#ccfbf1;color:#0f766e;">IMAGING</span>
+            <h3 style="margin-top:8px;">Digital Chest X-Ray & ECG</h3>
+            <p style="color:var(--text-muted);font-size:13px;margin:6px 0;">Immediate cardiopulmonary screening with digital radiologist report generated in 2 hours.</p>
+            <div class="pkg-price">$45.00</div>
+          </div>
+          <button class="btn-primary" onclick="quickBookPackage('Digital Chest X-Ray & ECG', 45)">Book Imaging</button>
         </div>
       </div>
     </div>
@@ -539,7 +557,6 @@
   </div>
 
   <script>
-    // 5-Language Dictionary
     const translations = {
       en: {
         topStripText: "🏥 AuraHealth Clinic — NABH Accredited 360° Healthcare Network",
@@ -550,7 +567,7 @@
         navDesk: "Desk Console",
         navOutbox: "Outbox",
         heroTitle: "Complete Healthcare, Zero Waiting Conflicts",
-        heroSubtitle: "Online video consultations, free community health checkups, smart slot booking, certified lab tests, and 24/7 doorstep medicine delivery.",
+        heroSubtitle: "Online video consultations, free community checkups, smart slot reservation, certified lab tests, and 24/7 doorstep medicine delivery.",
         allServicesHeading: "🌟 Everything You Need In One Place",
         allServicesSub: "Choose any service below for fast, conflict-free care.",
         srvInClinic: "In-Clinic Consultation",
@@ -572,7 +589,7 @@
         cardEnterpriseTitle: "⚡ Enterprise Rules",
         cardEnterpriseDesc: "ACID SQLite transactions, 24-hour late cancel fees, and conflict-free rescheduling.",
         bookConsultTitle: "🩺 Book Your Consultation",
-        labelIllness: "Find Specialist by Illness / Symptom:",
+        labelIllness: "What is wrong? Select your symptom / condition:",
         labelConsultMode: "Consultation Mode",
         labelLocation: "Select Clinic Location",
         labelDoctor: "Select Specialist Doctor",
@@ -621,7 +638,7 @@
         cardEnterpriseTitle: "⚡ क्लिनिक नीतियां",
         cardEnterpriseDesc: "24 घंटे पूर्व रद्दीकरण नियम और सुरक्षित समय परिवर्तन।",
         bookConsultTitle: "🩺 डॉक्टर परामर्श बुक करें",
-        labelIllness: "बीमारी या लक्षण अनुसार डॉक्टर खोजें:",
+        labelIllness: "क्या समस्या है? अपना लक्षण या बीमारी चुनें:",
         labelConsultMode: "परामर्श का प्रकार",
         labelLocation: "क्लिनिक शाखा चुनें",
         labelDoctor: "विशेषज्ञ डॉक्टर चुनें",
@@ -664,7 +681,7 @@
         btnClaimFree: "ফ্রি স্লট নিন",
         btnFindStore: "দোকান খুঁজুন",
         bookConsultTitle: "🩺 ডাক্তার পরামর্শ বুক করুন",
-        labelIllness: "লক্ষণ অনুযায়ী বিশেষজ্ঞ ডাক্তার খুঁজুন:",
+        labelIllness: "কী সমস্যা হচ্ছে? আপনার লক্ষণ নির্বাচন করুন:",
         labelConsultMode: "পরামর্শের ধরন",
         labelLocation: "ক্লিনিক লোকেশন",
         labelDoctor: "বিশেষজ্ঞ নির্বাচন করুন",
@@ -707,7 +724,7 @@
         btnClaimFree: "இலவச முன்பதிவு",
         btnFindStore: "மருந்தகத்தைக் காண்க",
         bookConsultTitle: "🩺 ஆலோசனை முன்பதிவு செய்க",
-        labelIllness: "அறிகுறிகளின்படி மருத்துவரை தேர்ந்தெடுக்கவும்:",
+        labelIllness: "உங்களுக்கு என்ன பிரச்சனை? அறிகுறியைத் தேர்ந்தெடுக்கவும்:",
         labelConsultMode: "ஆலோசனை முறை",
         labelLocation: "கிளை இருப்பிடம்",
         labelDoctor: "மருத்துவர்",
@@ -750,7 +767,7 @@
         btnClaimFree: "Reclamar Cita Gratis",
         btnFindStore: "Ubicar Farmacia",
         bookConsultTitle: "🩺 Reservar Consulta Médica",
-        labelIllness: "Buscar por Síntoma o Enfermedad:",
+        labelIllness: "¿Cuál es el síntoma o molestia principal?",
         labelConsultMode: "Modalidad de Consulta",
         labelLocation: "Seleccione Sucursal",
         labelDoctor: "Seleccione Especialista",
@@ -802,27 +819,25 @@
       refreshClock();
     }
 
-    // Telehealth & Free Consultation Handlers
     function startTelehealth() {
       switchTab('portal');
       document.getElementById('portalConsultMode').value = 'ONLINE_VIDEO';
-      alert('Selected: Online Video Consultation. Choose your doctor and time slot to receive a secure video consultation link.');
+      alert('Selected: Online Video Consultation. Choose your doctor and slot to receive a secure video call link.');
     }
 
     function bookFreeConsultation() {
       switchTab('portal');
       document.getElementById('portalConsultMode').value = 'FREE_OPD';
-      alert('Selected: Community Free Consultation ($0 fee). Please enter your details and lock your slot.');
+      alert('Selected: Community Free Consultation ($0 fee). Enter your details to reserve your slot.');
     }
 
     function orderMedicine(storeName) {
-      const rx = prompt(`Order from ${storeName}:\nPlease enter your prescription medicine names or patient token number:`);
+      const rx = prompt(`Order from ${storeName}:\nEnter required medicines or prescription token number:`);
       if (rx) {
-        alert(`Order Received!\nStore: ${storeName}\nOrder details: "${rx}"\nA pharmacist will contact you for instant dispatch or counter pickup.`);
+        alert(`Order Received!\nStore: ${storeName}\nMedicines: "${rx}"\nA pharmacist will contact you for instant dispatch.`);
       }
     }
 
-    // Illness / Symptom Doctor Selector
     function filterByIllness(specialtyKeyword) {
       document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
       event.target.classList.add('selected');
@@ -839,7 +854,7 @@
     function quickBookPackage(packageName, price) {
       switchTab('portal');
       document.getElementById('portalBookPatient').value = "";
-      alert(`Selected: ${packageName} ($${price}). Please enter patient details and choose a preferred time slot.`);
+      alert(`Selected: ${packageName} ($${price}). Enter patient details and choose a preferred time slot.`);
     }
 
     async function fetchStats() {
