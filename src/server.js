@@ -55,7 +55,35 @@ app.post('/api/auth/login', (req, res) => {
   const token = jwt.sign({ id: user.id, email: user.email, name: user.name }, JWT_SECRET, { expiresIn: '12h' });
   res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
 });
+// ---------------- CLINIC SUMMARY STATS ----------------
+app.get('/api/stats', (req, res) => {
+  try {
+    const activeAppointments = db.prepare(`
+      SELECT COUNT(*) as count FROM appointments WHERE status = 'SCHEDULED'
+    `).get().count;
 
+    const uniquePatients = db.prepare(`
+      SELECT COUNT(DISTINCT patient_phone) as count FROM appointments
+    `).get().count;
+
+    const completedToday = db.prepare(`
+      SELECT COUNT(*) as count FROM appointments WHERE status = 'COMPLETED'
+    `).get().count;
+
+    const noShows = db.prepare(`
+      SELECT COUNT(*) as count FROM appointments WHERE status = 'NO_SHOW'
+    `).get().count;
+
+    res.json({
+      activeAppointments,
+      uniquePatients,
+      completedToday,
+      noShows
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to compute clinic stats' });
+  }
+});
 // ---------------- DOCTORS ----------------
 app.get('/api/doctors', (req, res) => {
   res.json(db.prepare(`SELECT * FROM doctors`).all());

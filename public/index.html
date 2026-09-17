@@ -25,11 +25,9 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', -apple-system, sans-serif; background-color: var(--bg-slate); color: var(--text-main); line-height: 1.5; }
 
-    /* Top Strip */
     .top-strip { background: var(--aura-navy); color: #cbd5e1; font-size: 12px; padding: 6px 2rem; display: flex; justify-content: space-between; align-items: center; }
     .top-strip span { display: inline-flex; align-items: center; gap: 6px; }
 
-    /* Header & Navigation */
     header { background: #fff; border-bottom: 1px solid var(--border-color); padding: 0.85rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
     .brand-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; color: var(--aura-navy); text-decoration: none; }
     .brand-cross { background: var(--aura-orange); color: white; border-radius: 6px; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; }
@@ -39,42 +37,37 @@
     .nav-btn:hover { background: #f1f5f9; color: var(--text-main); }
     .nav-btn.active { background: #e0f2fe; color: var(--aura-blue); border-color: #bae6fd; }
 
-    /* Hero Section */
     .hero { background: linear-gradient(135deg, #0b2239 0%, #1e3a8a 60%, #0369a1 100%); color: #fff; padding: 3.5rem 2rem 4rem; text-align: center; }
     .hero h1 { font-size: 2.3rem; font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.5px; }
     .hero p { font-size: 1.05rem; color: #e2e8f0; max-width: 680px; margin: 0 auto 1.5rem; }
     .quick-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
     .quick-badge { background: rgba(255,255,255,0.12); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 20px; font-size: 13px; color: #fff; border: 1px solid rgba(255,255,255,0.18); }
 
-    /* Main Container */
     .container { max-width: 1200px; margin: -2rem auto 3rem; padding: 0 1.5rem; }
     .card { background: var(--card-bg); border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05); border: 1px solid var(--border-color); margin-bottom: 1.5rem; }
 
-    /* Grid Layouts */
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
 
-    /* Form Controls */
+    /* Metric Stat Card */
+    .stat-card { background: #fff; border: 1px solid var(--border-color); border-radius: 10px; padding: 1.2rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+    .stat-val { font-size: 28px; font-weight: 700; color: var(--aura-navy); margin-top: 4px; }
+    .stat-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+    .stat-icon { font-size: 28px; padding: 8px; border-radius: 8px; background: #f0f9ff; }
+
     label { display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 4px; }
     input, select, button { width: 100%; padding: 10px 14px; margin-bottom: 14px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 14px; }
-    input:focus, select:focus { outline: none; border-color: var(--aura-blue); ring: 2px solid #bae6fd; }
+    input:focus, select:focus { outline: none; border-color: var(--aura-blue); }
 
     button.btn-primary { background: var(--aura-blue); color: white; border: none; font-weight: 600; cursor: pointer; transition: background 0.2s; }
     button.btn-primary:hover { background: #026ca3; }
-    button.btn-emergency { background: #ef4444; color: white; border: none; font-weight: 600; cursor: pointer; }
     button.btn-secondary { background: #f1f5f9; color: var(--text-main); border: 1px solid #cbd5e1; cursor: pointer; }
 
-    /* Doctor Profile Cards */
-    .doctor-card { border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.2s; }
-    .doctor-card:hover, .doctor-card.selected { border-color: var(--aura-blue); background: #f0f9ff; }
-    .doc-avatar { width: 44px; height: 44px; border-radius: 50%; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--aura-navy); }
-
-    /* Tables */
     table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
     th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
     th { background: #f8fafc; font-weight: 600; color: var(--text-muted); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
 
-    /* Badges */
     .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; }
     .badge-scheduled { background: #dcfce7; color: #15803d; }
     .badge-cancelled { background: #fee2e2; color: #b91c1c; }
@@ -82,12 +75,10 @@
     .badge-no_show { background: #fef3c7; color: #b45309; }
     .badge-emergency { background: #ffe4e6; color: #e11d48; border: 1px solid #fda4af; }
 
-    /* Alert Banners */
     .alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 14px; font-size: 14px; display: none; }
     .alert-error { background: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; }
     .alert-success { background: #dcfce7; border: 1px solid #86efac; color: #166534; }
 
-    /* Time Simulation Header Bar */
     .sim-bar { background: #0f172a; color: white; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 1.5rem; }
     .sim-bar span.pill { background: #1e293b; padding: 4px 10px; border-radius: 6px; font-family: monospace; font-size: 12px; color: #38bdf8; }
 
@@ -173,6 +164,38 @@
         <input type="datetime-local" id="simTimeInput" style="margin:0;padding:5px 8px;width:auto;background:#1e293b;color:#fff;border-color:#334155;">
         <button class="btn-secondary" style="width:auto;margin:0;padding:6px 12px;" onclick="setClock()">Set Clock (POST /clock)</button>
         <button class="btn-secondary" style="width:auto;margin:0;padding:6px 12px;" onclick="advanceClock(30)">+30 Mins (Trigger No-Show)</button>
+      </div>
+    </div>
+
+    <!-- Live Dynamic Clinic Metric Cards -->
+    <div class="grid-4">
+      <div class="stat-card">
+        <div>
+          <div class="stat-label">Active Appointments</div>
+          <div class="stat-val" id="statActiveAppts">-</div>
+        </div>
+        <div class="stat-icon" style="background:#e0f2fe;color:#0284c7;">📅</div>
+      </div>
+      <div class="stat-card">
+        <div>
+          <div class="stat-label">Registered Patients</div>
+          <div class="stat-val" id="statUniquePatients">-</div>
+        </div>
+        <div class="stat-icon" style="background:#dcfce7;color:#16a34a;">👥</div>
+      </div>
+      <div class="stat-card">
+        <div>
+          <div class="stat-label">Completed Consults</div>
+          <div class="stat-val" id="statCompleted">-</div>
+        </div>
+        <div class="stat-icon" style="background:#ede9fe;color:#7c3aed;">✅</div>
+      </div>
+      <div class="stat-card">
+        <div>
+          <div class="stat-label">No-Show / Bounced</div>
+          <div class="stat-val" id="statNoShows">-</div>
+        </div>
+        <div class="stat-icon" style="background:#fef3c7;color:#d97706;">⚠️</div>
       </div>
     </div>
 
@@ -299,10 +322,26 @@
       if (tab === 'desk' || tab === 'portal') {
         loadDoctors();
         fetchAppointments(1);
+        fetchStats();
       } else if (tab === 'outbox') {
         loadOutbox();
       }
       refreshClock();
+    }
+
+    async function fetchStats() {
+      try {
+        const res = await fetch('/api/stats');
+        if (res.ok) {
+          const stats = await res.json();
+          document.getElementById('statActiveAppts').innerText = stats.activeAppointments;
+          document.getElementById('statUniquePatients').innerText = stats.uniquePatients;
+          document.getElementById('statCompleted').innerText = stats.completedToday;
+          document.getElementById('statNoShows').innerText = stats.noShows;
+        }
+      } catch (e) {
+        console.error("Failed to load metrics", e);
+      }
     }
 
     async function refreshClock() {
@@ -330,6 +369,7 @@
       showAlert(`Clock updated to ${new Date(data.current_time).toLocaleString()}! Reminders Dispatched: ${data.reminders_dispatched}, No-shows marked: ${data.no_shows_marked}`, false);
       refreshClock();
       fetchAppointments(1);
+      fetchStats();
     }
 
     async function advanceClock(mins) {
@@ -342,6 +382,7 @@
       showAlert(`Clock advanced by ${mins} minutes. Auto No-Shows Marked: ${data.no_shows_marked}`, false);
       refreshClock();
       fetchAppointments(1);
+      fetchStats();
     }
 
     async function loadDoctors() {
@@ -378,6 +419,7 @@
         showAlert('Appointment successfully locked without conflicts (Token #' + data.appointmentId + ')', false);
         fetchAppointments(1);
         loadDoctorSchedule();
+        fetchStats();
       } catch (err) {
         showAlert(err.message, true);
       }
@@ -401,6 +443,7 @@
         alert('Appointment successfully rescheduled with conflict-free validation!');
         fetchAppointments(1);
         loadDoctorSchedule();
+        fetchStats();
       }
     }
 
@@ -411,11 +454,13 @@
       alert(`${data.message}\nCancellation Fee Applied: $${data.cancellationFee.toFixed(2)}`);
       fetchAppointments(1);
       loadDoctorSchedule();
+      fetchStats();
     }
 
     async function completeAppointment(id) {
       await fetch(`/api/appointments/${id}/complete`, { method: 'PATCH' });
       fetchAppointments(1);
+      fetchStats();
     }
 
     async function fetchAppointments(page = 1) {
