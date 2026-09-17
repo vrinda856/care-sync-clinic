@@ -3,15 +3,19 @@ const path = require('path');
 
 const db = new Database(path.join(__dirname, '../clinic.db'));
 
-// SQLite performance and FK consistency pragmas
 db.pragma('journal_mode = WAL');
 db.pragma('foreign_keys = ON');
 
-// Initialize clinic tables
 db.exec(`
   CREATE TABLE IF NOT EXISTS settings (
     key TEXT PRIMARY KEY,
     value TEXT NOT NULL
+  );
+
+  CREATE TABLE IF NOT EXISTS system_clock (
+    id INTEGER PRIMARY KEY CHECK (id = 1),
+    simulated_time DATETIME NOT NULL,
+    last_reminder_date TEXT DEFAULT ''
   );
 
   CREATE TABLE IF NOT EXISTS users (
@@ -38,7 +42,7 @@ db.exec(`
     patient_phone TEXT NOT NULL,
     start_time DATETIME NOT NULL,
     end_time DATETIME NOT NULL,
-    status TEXT CHECK(status IN ('SCHEDULED', 'CANCELLED', 'COMPLETED', 'BUMPED')) DEFAULT 'SCHEDULED',
+    status TEXT CHECK(status IN ('SCHEDULED', 'CANCELLED', 'COMPLETED', 'BUMPED', 'NO_SHOW')) DEFAULT 'SCHEDULED',
     priority TEXT CHECK(priority IN ('REGULAR', 'EMERGENCY')) DEFAULT 'REGULAR',
     cancellation_fee REAL DEFAULT 0.0,
     cancelled_at DATETIME NULL,
@@ -46,11 +50,26 @@ db.exec(`
     FOREIGN KEY(doctor_id) REFERENCES doctors(id)
   );
 
+  -- Level 2 notification outbox table
+  CREATE TABLE IF NOT EXISTS outbox (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    recipient TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    message TEXT NOT NULL,
+    appointment_id INTEGER,
+    sent_at DATETIME NOT NULL,
+    type TEXT DEFAULT 'MORNING_REMINDER',
+    FOREIGN KEY(appointment_id) REFERENCES appointments(id)
+  );
+
   CREATE INDEX IF NOT EXISTS idx_appts_doc_time ON appointments(doctor_id, start_time, end_time);
   CREATE INDEX IF NOT EXISTS idx_appts_patient ON appointments(patient_name);
 `);
 
-// Default system settings (ready for mid-round twists)
+// Pre-load default clock & settings
+const insertClock = db.prepare(`INSERT OR IGNORE INTO system_clock (id, simulated_time, last_reminder_date) VALUES (1, datetime('now'), '')`);
+insertClock.run();
+
 const insertSetting = db.prepare(`INSERT OR IGNORE INTO settings (key, value) VALUES (?, ?)`);
 insertSetting.run('buffer_minutes', '0');
 insertSetting.run('late_cancel_threshold_hours', '24');
