@@ -127,3 +127,113 @@ The tests confirm that the main scheduling rules work as expected:
 * Cancellation fees are automatically calculated based on the 24-hour rule.
 
 These checks help ensure that the reception desk can manage appointments without accidentally double-booking doctors or manually calculating late cancellation fees.
+
+
+## 3. Mid-Round Twist Architecture and Implementation
+
+During development, three additional lifecycle requirements were introduced. Each one was handled by extending the existing appointment and clock logic instead of creating a separate system.
+
+### Level 1 — T6: Appointment Rescheduling
+
+A new endpoint was added:
+
+**`PATCH /api/appointments/:id/reschedule`**
+
+The endpoint allows a receptionist to move an existing appointment to a different time while keeping the same doctor and patient.
+
+When an appointment is rescheduled, these details cannot be changed:
+
+* `doctor_id`
+* `patient_name`
+* `patient_phone`
+
+Only the appointment's `start_time` and `end_time` are updated.
+
+The new time is also checked for conflicts with other appointments. The current appointment is excluded from this check using `excludeApptId`. This is important because otherwise the appointment could incorrectly conflict with its own existing booking.
+
+---
+
+### Level 2 — T1: Morning Reminder Outbox
+
+To support patient reminders, an `outbox` table and an `/outbox` endpoint were added.
+
+The simulated clinic clock is used to trigger the reminders. When `POST /clock` advances the time into the morning window, `dispatchMorningReminders()` looks for all active appointments scheduled for that day.
+
+For each applicable appointment, a reminder notification is created and stored in the outbox.
+
+The reminder logic also includes **deduplication**, so advancing the clock multiple times does not create duplicate reminders for the same appointment.
+
+This gives the system a simple way to generate and verify notifications without requiring an external messaging service.
+
+---
+
+### Level 3 — T2: Automatic No-Show Detection
+
+The appointment lifecycle was extended with a new status:
+
+**`NO_SHOW`**
+
+When the simulated clock moves forward, the system runs `evaluateNoShows()`.
+
+It checks for appointments that:
+
+* are still in `SCHEDULED` status, and
+* started at least 30 minutes before the current simulated time.
+
+The condition is effectively:
+
+```text
+start_time <= simulated_time - 30 minutes
+```
+
+Any appointment matching these conditions is automatically changed to `NO_SHOW`.
+
+An appointment that has already been marked as `COMPLETED` is not affected.
+
+---
+
+## 4. Edge-Case Debugging and Resolution
+
+A few issues came up while implementing and testing these features.
+
+### Codespaces Headless Stream Error (`EBADF`)
+
+**Problem:**
+The application originally used `process.stdin.resume()` to keep the process running. In the headless Codespaces environment, `stdin` was not connected normally, which caused an `EBADF` stream error.
+
+**Solution:**
+The stdin listener was removed and replaced with a non-blocking `setInterval()` timer. This keeps the process alive without depending on an interactive terminal.
+
+---
+
+### SQLite CHECK Constraint After Adding `NO_SHOW`
+
+**Problem:**
+The database originally had a fixed `CHECK` constraint that only allowed the existing appointment statuses. Adding `NO_SHOW` to the application code therefore caused problems with an older SQLite database.
+
+**Solution:**
+The database was rebuilt and seeded with the updated status constraint:
+
+```sql
+CHECK(status IN (
+  'SCHEDULED',
+  'CANCELLED',
+  'COMPLETED',
+  'BUMPED',
+  'NO_SHOW'
+))
+```
+
+This ensured that SQLite and the application used the same set of valid appointment statuses.
+
+---
+
+## Verified Test Runs
+
+The new functionality was tested after implementation:
+
+* **Rescheduling:** Confirmed that appointments can be moved to a new time and that the new slot is checked for conflicts.
+* **Morning reminders:** Advancing the simulated clock to **08:00** successfully generated the reminder and added it to `/outbox`.
+* **No-show detection:** Advancing the clock to **35 minutes after an appointment's start time** automatically changed the appointment status to `NO_SHOW`.
+
+These tests confirmed that the three lifecycle twists work together with the existing appointment scheduling logic.
