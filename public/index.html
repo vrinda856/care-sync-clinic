@@ -50,7 +50,6 @@
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
 
-    /* Metric Stat Card */
     .stat-card { background: #fff; border: 1px solid var(--border-color); border-radius: 10px; padding: 1.2rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
     .stat-val { font-size: 28px; font-weight: 700; color: var(--aura-navy); margin-top: 4px; }
     .stat-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
@@ -151,7 +150,53 @@
     </div>
   </div>
 
-  <!-- 2. PATIENT BOOKING / DESK APP -->
+  <!-- 2. PATIENT SELF-SERVICE BOOKING PORTAL TAB -->
+  <div id="portalSection" class="container" style="margin-top: 1.5rem; display:none;">
+    <div id="portalAlertSuccess" class="alert alert-success"></div>
+    <div id="portalAlertDanger" class="alert alert-error"></div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="color:var(--aura-navy);margin-bottom:12px;">🩺 Book Your Doctor Consultation</h3>
+        <p style="color:var(--text-muted);font-size:13px;margin-bottom:16px;">Direct online appointment booking with conflict-free slot reservation.</p>
+
+        <label>Select Specialist Doctor</label>
+        <select id="portalBookDoctor"></select>
+
+        <label>Patient Full Name</label>
+        <input type="text" id="portalBookPatient" placeholder="e.g. Rachel Adams">
+
+        <label>Patient Mobile Number</label>
+        <input type="text" id="portalBookPhone" placeholder="e.g. 9876543210">
+
+        <div style="display:flex;gap:10px;">
+          <div style="flex:1;">
+            <label>Start Time</label>
+            <input type="datetime-local" id="portalBookStart">
+          </div>
+          <div style="flex:1;">
+            <label>End Time</label>
+            <input type="datetime-local" id="portalBookEnd">
+          </div>
+        </div>
+
+        <button class="btn-primary" style="margin-top:8px;" onclick="bookFromPortal()">Confirm Consultation Slot</button>
+      </div>
+
+      <div class="card">
+        <h3 style="color:var(--aura-navy);margin-bottom:12px;">🔍 Check My Appointment Status</h3>
+        <p style="color:var(--text-muted);font-size:13px;margin-bottom:16px;">Enter your phone number to find your booked consultation.</p>
+
+        <label>Registered Phone Number</label>
+        <input type="text" id="portalLookupPhone" placeholder="e.g. 9876543210">
+        <button class="btn-secondary" onclick="lookupPatientAppointments()">Search Appointments</button>
+
+        <div id="portalLookupResults" style="margin-top:1rem;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. DESK CONSOLE TAB -->
   <div id="deskSection" class="container" style="margin-top: 1.5rem; display:none;">
 
     <!-- Simulator Control Banner (Grading & Evaluator compliance) -->
@@ -283,7 +328,7 @@
 
   </div>
 
-  <!-- 3. NOTIFICATION OUTBOX TAB -->
+  <!-- 4. NOTIFICATION OUTBOX TAB -->
   <div id="outboxSection" class="container" style="margin-top: 1.5rem; display:none;">
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -312,14 +357,17 @@
   <script>
     function switchTab(tab) {
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-      const activeBtn = document.getElementById('btn-' + (tab === 'portal' ? 'desk' : tab));
+      const activeBtn = document.getElementById('btn-' + tab);
       if (activeBtn) activeBtn.classList.add('active');
 
       document.getElementById('landingSection').style.display = (tab === 'landing') ? 'block' : 'none';
-      document.getElementById('deskSection').style.display = (tab === 'desk' || tab === 'portal') ? 'block' : 'none';
+      document.getElementById('portalSection').style.display = (tab === 'portal') ? 'block' : 'none';
+      document.getElementById('deskSection').style.display = (tab === 'desk') ? 'block' : 'none';
       document.getElementById('outboxSection').style.display = (tab === 'outbox') ? 'block' : 'none';
 
-      if (tab === 'desk' || tab === 'portal') {
+      if (tab === 'portal') {
+        loadDoctors();
+      } else if (tab === 'desk') {
         loadDoctors();
         fetchAppointments(1);
         fetchStats();
@@ -389,7 +437,13 @@
       const res = await fetch('/api/doctors');
       const docs = await res.json();
       const opts = docs.map(d => `<option value="${d.id}">${d.name} — ${d.specialty}</option>`).join('');
-      document.getElementById('bookDoctor').innerHTML = opts;
+      
+      const deskSelect = document.getElementById('bookDoctor');
+      if (deskSelect) deskSelect.innerHTML = opts;
+
+      const portalSelect = document.getElementById('portalBookDoctor');
+      if (portalSelect) portalSelect.innerHTML = opts;
+
       document.getElementById('scheduleDoctor').innerHTML = opts;
       document.getElementById('filterDoctor').innerHTML = '<option value="">All Specialists</option>' + opts;
       document.getElementById('scheduleDate').value = new Date().toISOString().split('T')[0];
@@ -423,6 +477,68 @@
       } catch (err) {
         showAlert(err.message, true);
       }
+    }
+
+    async function bookFromPortal() {
+      const succ = document.getElementById('portalAlertSuccess');
+      const err = document.getElementById('portalAlertDanger');
+      succ.style.display = 'none';
+      err.style.display = 'none';
+
+      const payload = {
+        doctor_id: document.getElementById('portalBookDoctor').value,
+        patient_name: document.getElementById('portalBookPatient').value,
+        patient_phone: document.getElementById('portalBookPhone').value,
+        start_time: document.getElementById('portalBookStart').value,
+        end_time: document.getElementById('portalBookEnd').value,
+        priority: 'REGULAR'
+      };
+
+      try {
+        const res = await fetch('/api/appointments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+
+        succ.innerText = 'Appointment confirmed without conflicts! (Appointment ID #' + data.appointmentId + ')';
+        succ.style.display = 'block';
+        fetchStats();
+      } catch (e) {
+        err.innerText = e.message;
+        err.style.display = 'block';
+      }
+    }
+
+    async function lookupPatientAppointments() {
+      const phone = document.getElementById('portalLookupPhone').value.trim();
+      const container = document.getElementById('portalLookupResults');
+      if (!phone) {
+        container.innerHTML = '<p style="color:var(--danger);font-size:13px;">Please enter a valid phone number.</p>';
+        return;
+      }
+
+      const res = await fetch(`/api/appointments?search=${encodeURIComponent(phone)}`);
+      const result = await res.json();
+
+      if (!result.data || result.data.length === 0) {
+        container.innerHTML = '<p style="color:var(--text-muted);font-size:13px;">No appointments found for this number.</p>';
+        return;
+      }
+
+      container.innerHTML = result.data.map(a => `
+        <div style="border:1px solid var(--border-color);border-radius:8px;padding:12px;margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;">
+            <strong>${a.doctor_name} (${a.specialty})</strong>
+            <span class="badge badge-${a.status.toLowerCase()}">${a.status}</span>
+          </div>
+          <div style="color:var(--text-muted);font-size:13px;margin-top:4px;">
+            🕒 ${new Date(a.start_time).toLocaleString()} - ${new Date(a.end_time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}
+          </div>
+        </div>
+      `).join('');
     }
 
     async function promptReschedule(id, currentStart, currentEnd) {
